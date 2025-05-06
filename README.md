@@ -18,11 +18,25 @@
 
 ## 📦 Installation
 
+You can either clone and run from source:
+
 ```bash
 git clone https://github.com/smridhgupta/logharbor.git
 cd logharbor
 pip install -r requirements.txt
 ```
+
+Or download precompiled binaries from the **[Releases](https://github.com/smridhgupta/logharbor/releases)** tab:
+
+```bash
+# For Debian/Ubuntu Linux only
+chmod +x logharbor
+chmod +x visualise
+./logharbor
+./visualise output.json
+```
+
+> 🔧 These are standalone builds, no Python needed. Only tested on Debian-based systems.
 
 ---
 
@@ -57,11 +71,11 @@ python logharbor.py --access access.log --error error.log --export-json output.j
 
 ## 📈 Offline Visualization Support
 
-**LogHarbor** supports generating graphical reports from exported `.json` summaries using the `visualise.py` tool:
+LogHarbor supports **graphical report generation** from your exported `.json` using a dedicated visualizer:
 
 ### 📊 `visualise.py` — Headless Plot Generator
 
-Generate six plots from your analysis JSON export:
+Generates 6 charts from the summary:
 
 * HTTP Status Codes
 * Request Methods
@@ -70,13 +84,21 @@ Generate six plots from your analysis JSON export:
 * Malicious IPs by Risk Score
 * Time-based Traffic Heatmap
 
-#### ✅ Run:
+✅ **Run with:**
 
 ```bash
 python visualise.py output.json
 ```
 
-All visuals will be saved in the `./visuals/` directory.
+All visuals will be saved under:
+
+```
+./visuals/
+```
+
+> Or use the precompiled `./visualise` binary (Debian Linux only).
+
+---
 
 #### 📸 Sample Visual Outputs
 
