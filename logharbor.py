@@ -121,7 +121,7 @@ def generate_risk_scores(ip_profiles):
 
         score += 20 if any(p in known_bad_paths for p in data["paths"]) else 0
         score += 20 if any(sig in ua for ua in data["ua"] for sig in scan_signatures) else 0
-        score += min(len(data["paths"]), 20)
+        score += min(len(data["paths"]), 20)  # unique paths
         score += 10 if data["scan"] else 0
 
         scored.append((ip, int(score), data))
@@ -264,7 +264,7 @@ def find_existing(paths):
     return next((p for p in paths if os.path.exists(p)), None)
 
 def main():
-    parser = argparse.ArgumentParser(description="🔥 LogHarbor Log Analyzer")
+    parser = argparse.ArgumentParser(description="🔥 Tactical Log Analyzer")
     parser.add_argument("--access", help="Path to access log file")
     parser.add_argument("--error", help="Path to error log file")
     parser.add_argument("--logdir", help="Directory containing access/error logs")
@@ -274,12 +274,14 @@ def main():
     access_path = args.access
     error_path = args.error
 
+    # Support for --logdir option
     if args.logdir:
         access_path = os.path.join(args.logdir, "access.log")
         error_path = os.path.join(args.logdir, "error.log")
 
+    # If not specified, try to detect via running domain and Apache vhost
     if not access_path or not error_path:
-        running_domain = input("Enter your running domain (e.g., tandev.us): ").strip()
+        running_domain = input("Enter your running domain (e.g., omnirecon.tandev.us): ").strip()
         vhost_access, vhost_error = get_enabled_vhost_logs(running_domain)
         access_path = access_path or vhost_access
         error_path = error_path or vhost_error
@@ -295,6 +297,7 @@ def main():
     console.print(f"[bold blue]→ Using access log:[/bold blue] {access_path}")
     console.print(f"[bold blue]→ Using error log:[/bold blue] {error_path}")
 
+    # Proceed with analysis
     console.rule("[bold blue]ACCESS LOG ANALYSIS")
     sessions, bots, codes, methods, paths, heatmap, suspicious, ip_profiles = parse_access_log(access_path)
 
@@ -326,20 +329,42 @@ def main():
     console.print(table)
 
     if args.export_json:
+        def serialize_ip_profiles(ip_profiles):
+            return {
+                ip: {
+                    "total": data["total"],
+                    "errors": data["errors"],
+                    "paths": list(data["paths"]),
+                    "ua": list(data["ua"]),
+                    "scan": data["scan"]
+                } for ip, data in ip_profiles.items()
+            }
+
+        def serialize_sessions(sessions):
+            return {
+                ip: [(dt.isoformat(), path, status) for dt, path, status in logs]
+                for ip, logs in sessions.items()
+            }
+
         export = {
             "unique_ips": len(sessions),
             "bots": bots.most_common(),
             "status_codes": dict(codes),
             "methods": dict(methods),
-            "top_paths": paths.most_common(20),
-            "suspicious_requests": suspicious[:20],
+            "top_paths": paths.most_common(),
+            "suspicious_requests": suspicious,
             "error_ips": error_ips.most_common(),
+            "all_error_lines": errors,
             "traffic_heatmap": dict(heatmap),
-            "top_ip_profiles": sorted(ip_profiles.items(), key=lambda x: x[1]["errors"], reverse=True)[:10]
+            "ip_profiles": serialize_ip_profiles(ip_profiles),
+            "sessions": serialize_sessions(sessions),
         }
+
         with open(args.export_json, "w") as f:
             json.dump(export, f, indent=2)
-        console.print(f"[green]✓ Exported summary to {args.export_json}[/green]")
+
+        console.print(f"[green]✓ Full report exported to {args.export_json}[/green]")
+
 
     generate_risk_scores(ip_profiles)
     analyze_persistence(sessions)
