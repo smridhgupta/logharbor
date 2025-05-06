@@ -91,6 +91,46 @@ pip install rich
 
 ---
 
+## 📸 Screenshots
+
+Below are real outputs from **LogHarbor**, displaying its powerful CLI interface and rich visual reports:
+
+### 🔍 Access Log Analysis with Top IPs and Bots
+
+![Screenshot 2025-05-06 at 1 50 08 AM](https://github.com/user-attachments/assets/5968a8e9-6195-458b-8f1c-7ca4fe2d6580)
+
+---
+
+### 📊 Methods, Top Paths & Suspicious IPs
+
+![Screenshot 2025-05-06 at 1 50 31 AM](https://github.com/user-attachments/assets/2fe71a79-74c2-4932-a75b-a5361c55302e)
+
+---
+
+### 🔥 Suspicious Requests and Error IPs
+
+![Screenshot 2025-05-06 at 1 51 05 AM](https://github.com/user-attachments/assets/4e414792-b192-46fe-964c-28274cd9db7d)
+
+---
+
+### 🕒 Peak Traffic Hours & Risk Scores
+
+![Screenshot 2025-05-06 at 1 51 27 AM](https://github.com/user-attachments/assets/1fa11a96-27aa-4fa9-8841-d3b39aac1466)
+
+---
+
+### 🧬 Session Persistence Report
+
+![Screenshot 2025-05-06 at 1 51 41 AM](https://github.com/user-attachments/assets/967bdcf8-40d3-4297-9025-504ccb378cfe)
+
+---
+
+### 📆 Enhanced Daily Analytics Summary
+
+![Screenshot 2025-05-06 at 1 51 53 AM](https://github.com/user-attachments/assets/d673a2ba-9753-4b4d-a634-fa1e61f458f5)
+
+---
+
 ## 📜 License
 
 GNU GPL v3 License
