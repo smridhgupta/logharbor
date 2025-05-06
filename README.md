@@ -55,6 +55,74 @@ python logharbor.py --access access.log --error error.log --export-json output.j
 
 ---
 
+## 📈 Offline Visualization Support
+
+**LogHarbor** supports generating graphical reports from exported `.json` summaries using the `visualise.py` tool:
+
+### 📊 `visualise.py` — Headless Plot Generator
+
+Generate six plots from your analysis JSON export:
+
+* HTTP Status Codes
+* Request Methods
+* Top Requested Paths
+* Top Bot IPs
+* Malicious IPs by Risk Score
+* Time-based Traffic Heatmap
+
+#### ✅ Run:
+
+```bash
+python visualise.py output.json
+```
+
+All visuals will be saved in the `./visuals/` directory.
+
+#### 📸 Sample Visual Outputs
+
+### 🔢 Status Code Distribution
+
+![status_codes](https://github.com/user-attachments/assets/ff6e5d18-7c3f-4f03-b1e5-46fa67052b13)
+
+---
+
+### 🌀 Request Method Breakdown
+
+![request_methods](https://github.com/user-attachments/assets/90f7a5c2-acc7-47e8-8853-4b59819ab6b5)
+
+---
+
+### 🔼 Top Requested Paths
+
+![top_paths](https://github.com/user-attachments/assets/6e65d7b9-bfe8-4c49-b661-eb170c50802f)
+
+---
+
+### 🤖 Top Bot IPs
+
+![bot_ips](https://github.com/user-attachments/assets/e6e57a78-8a8b-425d-bcfb-de024a9602a1)
+
+---
+
+### 🚨 Malicious IPs by Risk Score
+
+![malicious_ips](https://github.com/user-attachments/assets/c071020d-a754-4f12-99c8-a4ebe214ad61)
+
+---
+
+### 📈 Traffic Over Time (Hourly)
+
+![traffic_heatmap](https://github.com/user-attachments/assets/74b32394-b904-4cf5-a140-9f63c79975d8)
+
+---
+
+All plots will be saved to the `./visuals/` folder as `.png` images — ideal for reports, dashboards, or forensic snapshots.
+
+
+This script is headless-friendly (uses `Agg` backend) and works on servers without GUI support.
+
+---
+
 ## 🧪 Output Highlights
 
 * **👾 Top Bots**
@@ -87,6 +155,7 @@ Install via:
 
 ```bash
 pip install rich
+pip install matplotlib
 ```
 
 ---
