@@ -100,6 +100,21 @@ All visuals will be saved under:
 
 ---
 
+## ⚙️ Requirements
+
+* Python 3.7+
+* `rich`
+* Apache2 (for VHost detection, optional)
+
+Install via:
+
+```bash
+pip install rich
+pip install matplotlib
+```
+
+---
+
 #### 📸 Sample Visual Outputs
 
 ### 🔢 Status Code Distribution
@@ -164,21 +179,6 @@ This script is headless-friendly (uses `Agg` backend) and works on servers witho
 * Bug bounty and red teamers monitoring recon targets
 * AI security models needing structured behavioral inputs
 * Passive WAF or scanner detection
-
----
-
-## ⚙️ Requirements
-
-* Python 3.7+
-* `rich`
-* Apache2 (for VHost detection, optional)
-
-Install via:
-
-```bash
-pip install rich
-pip install matplotlib
-```
 
 ---
 
